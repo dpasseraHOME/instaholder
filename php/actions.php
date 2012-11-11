@@ -35,8 +35,7 @@ function request_popular() {
 
 	//Query need client_id or access_token
 	$query = array(
-		'client_id' => 'e4355740e9db4d6eae2570ce171ac807',
-		'count'		=> 3
+		'client_id' => 'e4355740e9db4d6eae2570ce171ac807'
 	);
 	// popular OR recent?
 	$url = 'https://api.instagram.com/v1/media/popular?'.http_build_query($query);
@@ -47,12 +46,23 @@ function request_popular() {
 		curl_setopt($curl_connection, CURLOPT_SSL_VERIFYPEER, false);
 
 
-		//Data are stored in $data
+		//Data are stored in $data as associative array
 		$data = json_decode(curl_exec($curl_connection), true);
 		curl_close($curl_connection);
 
-		var_dump($data);
+		//var_dump($data);
 
+		$img_arr = array();
+
+		foreach($data['data'] as $data_arr) {
+			//var_dump($data_arr['images']['standard_resolution']);
+			//echo json_encode($data_arr['images']['standard_resolution']);
+			array_push($img_arr, $data_arr['images']['standard_resolution']);
+		}
+
+		$json_str = json_encode($img_arr);
+
+		echo $json_str;
 
 	} catch(Exception $e) {
 		return $e->getMessage();

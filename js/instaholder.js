@@ -56,13 +56,19 @@
 			url		: 'http://www.monkeydriver.com/instaholder/php/actions.php',
 			data	: params,
 			dataType: 'json',
-			success	: on_serverResult
+			success	: on_serverResult,
+			error	: on_serverError
 		});
 	}
 
 	// TODO: handle server api response
 	function on_serverResult(data) {
 		console.log(data);
+	}
+
+	// TODO: handle server api error
+	function on_serverError(xhr) {
+		console.log('error : ');
 	}
 
 	// TODO: handle instagram api response

@@ -1,7 +1,5 @@
 Next
-[c] retrieve app keys
-[ ] test file - return user info
-	- best way to set parameters
+- parse returned image urls into json and send to js
 
 - jquery plugin to get instagram image and apply clip to 'img .instaholder'
 initialize
@@ -19,3 +17,18 @@ apply clip
 - adjust clip values accordingly
 
 * if !doLocal, but server is unreachable, doLocal
+
+
+Popular return structure (partial)
+- data[i]
+	- images
+		- standard_resolution
+			- url (str)
+			- width (int)
+			- height (int)
+
+How to search for standard_resolution data?
+- iterate through data arrays
+	- find images array
+		- find standard_resolution array
+		- find url, width, height
