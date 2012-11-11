@@ -1,0 +1,21 @@
+Next
+[c] retrieve app keys
+[ ] test file - return user info
+	- best way to set parameters
+
+- jquery plugin to get instagram image and apply clip to 'img .instaholder'
+initialize
+- pass in one user name or keyword for all images, or user name / keyword per img? Do it global for now. Per image can be in the update.
+
+get image from instagram api
+- get img element href attr
+- parse href attr for username or keyword
+- request instagram image url from api
+- set href attr to url
+	- need to handle api failure or no image returned
+
+apply clip
+- get img element width and height
+- adjust clip values accordingly
+
+* if !doLocal, but server is unreachable, doLocal
