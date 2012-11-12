@@ -1,5 +1,12 @@
 Next
-- handle returned json in js
+- need to pivot - new plan:
+- no jquery plugin
+- works like dummyimage.com, only the php draws from a database of standard_resoultion data that is created by a cron
+- each img src is a unique request
+- server uses request to deliver a cropped jpg
+- using this technique, is it now possible to log in through server? dantepassera could follow several quality accounts, and the results could be culled from those
+	- that would allow me to offer limited keywording.  Offer several, e.g. architecture, cars, food, people
+
 
 - jquery plugin to get instagram image and apply clip to 'img .instaholder'
 initialize
