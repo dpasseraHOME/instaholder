@@ -1,6 +1,8 @@
 (function($) {
 
 	var _settings;
+	// array of img elements requiring a placeholder
+	var _holderArr = [];
 
 	$.fn.instaholder = function(options) {
 
@@ -10,9 +12,6 @@
 
 		_settings = settings;
 
-		// array of img elements requiring a placeholder
-		var holderArr = [];
-
 		// handle img elements in dom
 		$('img').each(function() {
 			// determine if img requires placeholder
@@ -20,11 +19,11 @@
 				// set temporary fpo style
 				$(this).css('background-color','gray');
 				// add element to array
-				holderArr.push($(this));
+				_holderArr.push($(this));
 			}
 		});
 
-		if(holderArr.length > 0) {
+		if(_holderArr.length > 0) {
 			getImageUrls();
 		}
 
@@ -63,7 +62,15 @@
 
 	// TODO: handle server api response
 	function on_serverResult(data) {
-		console.log(data);
+		//console.log(data[0].url);
+		//console.log(data[1].url);
+		var amtToReplace = _holderArr.length;
+
+		for(var i=0; i<amtToReplace; i++) {
+			_holderArr[i].attr('src', data[i].url);
+		}
+
+		// TODO: handle situation in which there are more images to replace than unique images
 	}
 
 	// TODO: handle server api error

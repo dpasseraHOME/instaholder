@@ -1,5 +1,5 @@
 Next
-- parse returned image urls into json and send to js
+- handle returned json in js
 
 - jquery plugin to get instagram image and apply clip to 'img .instaholder'
 initialize
