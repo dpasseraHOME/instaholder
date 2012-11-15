@@ -1,41 +1,5 @@
-Next
-- need to pivot - new plan:
-- no jquery plugin
-- works like dummyimage.com, only the php draws from a database of standard_resoultion data that is created by a cron
-- each img src is a unique request
-- server uses request to deliver a cropped jpg
-- using this technique, is it now possible to log in through server? dantepassera could follow several quality accounts, and the results could be culled from those
-	- that would allow me to offer limited keywording.  Offer several, e.g. architecture, cars, food, people
-
-
-- jquery plugin to get instagram image and apply clip to 'img .instaholder'
-initialize
-- pass in one user name or keyword for all images, or user name / keyword per img? Do it global for now. Per image can be in the update.
-
-get image from instagram api
-- get img element href attr
-- parse href attr for username or keyword
-- request instagram image url from api
-- set href attr to url
-	- need to handle api failure or no image returned
-
-apply clip
-- get img element width and height
-- adjust clip values accordingly
-
-* if !doLocal, but server is unreachable, doLocal
-
-
-Popular return structure (partial)
-- data[i]
-	- images
-		- standard_resolution
-			- url (str)
-			- width (int)
-			- height (int)
-
-How to search for standard_resolution data?
-- iterate through data arrays
-	- find images array
-		- find standard_resolution array
-		- find url, width, height
+Plan
+	- jQuery plugin
+	- initializing plugin (with no parameter, tag, or user name) queries instagram api and saves image urls to session variable
+	- if possible crop images straight from instagram url and serve to page where requested
+	- might have to save image from api to server, crop, serve, then delete.  Not ideal.

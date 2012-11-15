@@ -1,28 +1,74 @@
-<!DOCTYPE html>
-<html lang="en-GB">
-<head>
-    <meta charset="utf-8">
-    <meta name="keywords" content="key, words">
-    <meta name="description" content="description">
-    <!-- <link rel="icon" href="favicon.ico" type="image/x-icon"> -->
-   	<title>Instaholder test</title>
-    <link rel="stylesheet" type="text/css" media="all" href="css/normalize.min.css" />
-    <link rel="stylesheet" type="text/css" media="all" href="css/style.css" />
+<?php
 
-    <!--script src="js/jquery-1.8.2.min.js" type="text/javascript"></script-->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
-    <script src="js/instaholder.js" type="text/javascript"></script>
-    <script src="js/main.js" type="text/javascript"></script>
+//https://api.instagram.com/v1/tags/architecture/media/recent?client_id=e4355740e9db4d6eae2570ce171ac807
 
-</head>
+requestByTag("architecture");
 
-<body>
+function requestByTag($tagStr) {
+	//Query need client_id or access_token
+	$query = array(
+		'client_id' => 'e4355740e9db4d6eae2570ce171ac807'
+	);
+	$url = 'https://api.instagram.com/v1/tags/'.$tagStr.'/media/recent?'.http_build_query($query);
 
-	<img src="images/pizza01.jpg"/>
-    <img src="instaholder" style="height:200px;width:200px">
-    <img src="instaholder" style="height:150px;width:300px">
-    <img src="images/pizza02.jpg"/>
+	makeCall($url);
+}
 
-</body>
+function requestByUserName($userName) {
+	// TODO: search by name, retrieve user id
+	// TODO: on search complete, requestByUserId(123);
+}
 
-</html>
+function requestByUserId($userId) {
+	//Query need client_id or access_token
+	$query = array(
+		'client_id' => 'e4355740e9db4d6eae2570ce171ac807'
+	);
+	$url = 'https://api.instagram.com/v1/users/'.$userId.'/?'.http_build_query($query);
+
+	makeCall($url);
+}
+
+//17710590
+function requestKen() {
+	//Query need client_id or access_token
+	$query = array(
+		'client_id' => 'e4355740e9db4d6eae2570ce171ac807'
+	);
+	$url = 'https://api.instagram.com/v1/users/17710590/?'.http_build_query($query);
+
+	makeCall($url);
+}
+
+function makeCall($url) {
+	try {
+		$curl_connection = curl_init($url);
+		curl_setopt($curl_connection, CURLOPT_CONNECTTIMEOUT, 30);
+		curl_setopt($curl_connection, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($curl_connection, CURLOPT_SSL_VERIFYPEER, false);
+
+
+		//Data are stored in $data as associative array
+		$data = json_decode(curl_exec($curl_connection), true);
+		curl_close($curl_connection);
+
+		//var_dump($data);
+
+		$img_arr = array();
+
+		foreach($data['data'] as $data_arr) {
+			//var_dump($data_arr['images']['standard_resolution']);
+			//echo json_encode($data_arr['images']['standard_resolution']);
+			array_push($img_arr, $data_arr['images']['standard_resolution']);
+		}
+
+		$json_str = json_encode($img_arr);
+
+		echo $json_str;
+
+	} catch(Exception $e) {
+		return $e->getMessage();
+	}
+}
+
+?>
